@@ -24,46 +24,83 @@ def Colorswitch():
     hex = input(f"{displaycolor} Hex ~ {reset}").strip()
     if len(hex) == 7 and hex.startswith('#'):
         try:
-            hex = hex.lstrip('#'); r, g, b = int(hex[:2], 16), int(hex[2:4], 16), int(hex[4:], 16); displaycolor = f'\x1b[38;2;{r};{g};{b}m'
+            hex = hex.lstrip('#')
+            r, g, b = int(hex[:2], 16), int(hex[2:4], 16), int(hex[4:], 16)
+            displaycolor = f'\x1b[38;2;{r};{g};{b}m'
         except ValueError:
             pass
 
 def Mainui():
     global displaycolor
-    while True:
-        user_input = input(f"""    {displaycolor}┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓                 ┏━━━━━━━━━━━━━━━━━━━━━┓
-      1 ~ {base64.b64decode("QWs=").decode("utf-8")}       6 ~ {base64.b64decode("VEhPTFBTT04=").decode("utf-8")}   11 ~ {base64.b64decode("TTky").decode("utf-8")}                           16 ~ {base64.b64decode("Q29sb3I=").decode("utf-8")}
-      2 ~ {base64.b64decode("THItMzAw").decode("utf-8")}   7 ~ {base64.b64decode("Q1VTVE9N").decode("utf-8")}     12 ~ {base64.b64decode("UHJvdG90eXBl").decode("utf-8")}
-      3 ~ {base64.b64decode("TTI0OSA=").decode("utf-8")}    8 ~ {base64.b64decode("UFlUSE9O").decode("utf-8")}     13 ~ {base64.b64decode("UDI=").decode("utf-8")}
-      4 ~ {base64.b64decode("SE1MTUcg").decode("utf-8")}   9 ~ {base64.b64decode("U0VNSQ==").decode("utf-8")}       14 ~ {base64.b64decode("UmV2bw==").decode("utf-8")}
-      5 ~ {base64.b64decode("TVA1").decode("utf-8")}      10 ~ {base64.b64decode("TTM5").decode("utf-8")}       15 ~ {base64.b64decode("U0tT").decode("utf-8")}
-    ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛                 ┗━━━━━━━━━━━━━━━━━━━━━┛
+    pages = [
+        f"""    {displaycolor}┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓                 ┏━━━━━━━━━━━━━━━━━━━━━┓
+      1 ~ {base64.b64decode("QUs=").decode("utf-8")}       6 ~ {base64.b64decode("VEhPTVBTT04=").decode("utf-8")}    11 ~ {base64.b64decode("TTky").decode("utf-8")}                           Color
+      2 ~ {base64.b64decode("TFItMzAw").decode("utf-8")}   7 ~ {base64.b64decode("Q1VTVE9NIFNNRw==").decode("utf-8")}  12 ~ {base64.b64decode("UFJPVE9UWVBF").decode("utf-8")}
+      3 ~ {base64.b64decode("TTI0OSA=").decode("utf-8")}    8 ~ {base64.b64decode("UFlUSE9O").decode("utf-8")}      13 ~ {base64.b64decode("UDI=").decode("utf-8")}
+      4 ~ {base64.b64decode("SE1MTUcg").decode("utf-8")}   9 ~ {base64.b64decode("U0VNSQ==").decode("utf-8")}        14 ~ {base64.b64decode("UmV2bw==").decode("utf-8")}
+      5 ~ {base64.b64decode("TVA1").decode("utf-8")}      10 ~ {base64.b64decode("TTM5").decode("utf-8")}        15 ~ {base64.b64decode("U0tT").decode("utf-8")}                                                             
+    ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛                 ┗━━━━━━━━━━━━━━━━━━━━━┛      
+                                                                                                   {base64.b64decode("TmV4dC4uLg==").decode("utf-8")}
+    """,
+        f"""    {displaycolor}┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓  
+      16 ~ {base64.b64decode("QWsgSG9sbw==").decode("utf-8")}       21 ~ {base64.b64decode("VEhPTVBTT04gSG9sbw==").decode("utf-8")}    26 ~ {base64.b64decode("TTkyIEhvbG8=").decode("utf-8")}                           
+      17 ~ {base64.b64decode("TFItMzAwIEhvbG8=").decode("utf-8")}   22 ~ {base64.b64decode("Q1VTVE9NIFNNRyBIb2xv").decode("utf-8")}  27 ~ {base64.b64decode("UFJPVE9UWVBFIEhvbG8=").decode("utf-8")}
+      18 ~ {base64.b64decode("TTI0OSBIb2xv").decode("utf-8")}     23 ~ {base64.b64decode("UFlUSE9OIEhvbG8=").decode("utf-8")}      28 ~ {base64.b64decode("UDIgSG9sbw==").decode("utf-8")}
+      19 ~ {base64.b64decode("SE1MTUcgSG9sbw==").decode("utf-8")}    24 ~ {base64.b64decode("U0VNSSBIb2xv").decode("utf-8")}        29 ~ {base64.b64decode("U0tTIEhvbG8=").decode("utf-8")}    
+      20 ~ {base64.b64decode("TVA1IEhvbG8=").decode("utf-8")}      25 ~ {base64.b64decode("TTM5IEhvbG8=").decode("utf-8")}      
+    ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+                                                                                                   {base64.b64decode("TmV4dC4uLiAgIC4uLkJhY2s=").decode("utf-8")}
+    """,
+    ]
 
-    {reset}"""
-        ).strip()
-        if user_input.lower() == "cls": os.system("cls")
-        elif user_input == "16": Colorswitch(); os.system("cls")
+    current_page = 0
+
+    while True:
+        os.system("cls")
+        print(pages[current_page])
+        user_input = input(f"{displaycolor} {reset}").strip().lower()
+
+        if user_input == "cls":
+            os.system("cls")
+        elif user_input == "next":
+            if current_page < len(pages) - 1:
+                current_page += 1
+                os.system("cls")
+            else:
+                print("already on last page")
+        elif user_input == "back":
+            if current_page > 0:
+                current_page -= 1
+                os.system("cls")
+            else:
+                print("already on first page")
+        elif user_input == "color":
+            Colorswitch()
+            os.system("cls")
         else:
             try:
-                mode = int(user_input); os.system("cls"); print(f"{displaycolor} Backspace, to return {reset}"); return mode if 1 <= mode <= 16 else None
+                mode = int(user_input)
+                os.system("cls")
+                print(f"{displaycolor} Backspace, to return {reset}")
+                return mode if 1 <= mode <= 30 else None
             except ValueError:
                 pass
-
+            
 def Input(mode):
     def gbud(x, y):
         global deltaX, deltaY
         deltaX = x; deltaY = y
 
-    global deltaX, deltaY, lasttime, keys_data
+    global deltaX, deltaY, lasttime, keys_data, actionsfinish
     currenttime = time.time()
     if lasttime is None:
         lasttime = currenttime
     elapsed_time = currenttime - lasttime
 
     def get_vk_code(key):
-            if key in autoduckkey: return autoduckkey[key]
-            elif len(key) == 1: return ord(key.upper())
-            else: return 0
+        if key in autoduckkey: return autoduckkey[key]
+        elif len(key) == 1: return ord(key.upper())
+        else: return 0
 
     ducking = any(win32api.GetKeyState(get_vk_code(keys_data.get(f'duckkey_{i}', ''))) < 0 for i in [1, 2])
 
@@ -102,19 +139,60 @@ def Input(mode):
         13: lambda: gbud(0, 13.56),
         14: lambda: gbud(0, 28),
         15: lambda: gbud(0, 22.8),
+        16: lambda: globals().update(
+            {
+                "deltaX": (
+                    deltaX - 0.3
+                    if elapsed_time <= 0.2
+                    else deltaX - 1.8
+                    if elapsed_time <= 0.53
+                    else deltaX - 3
+                ),
+                "deltaY": (
+                    5.4
+                    if elapsed_time <= 0.2
+                    else 5.2
+                    if elapsed_time <= 0.47
+                    else deltaY + 5
+                    if elapsed_time <= 0.53
+                    else deltaY + 4.96
+                ),
+            }
+        ),
+        17: lambda: gbud(0, deltaY + 4.74),
+        18: lambda: (gbud(-1.1, 4.2) if elapsed_time <= 0.34 else gbud(-2.9, 4.4)),
+        19: lambda: (gbud(-2.8, 4.5) if elapsed_time <= 0.1 else gbud(2.99, 4.7)),
+        20: lambda: gbud(0, deltaY + 3),
+        21: lambda: gbud(-0.18, deltaY + 2.2),
+        22: lambda: gbud(-0.1, deltaY + 2.6),
+        23: lambda: gbud(0, 145),
+        24: lambda: gbud(-0.5, 26.5),
+        25: lambda: gbud(-24, 36),
+        26: lambda: gbud(1.99, 80),
+        27: lambda: gbud(-0.5, 50),
+        28: lambda: gbud(0, 23),
+        29: lambda: gbud(0, 28.5)
     }
 
-    if mode in [8, 9, 10, 11, 12, 13, 14, 15]:
+    if mode not in actionsfinish:
+        actionsfinish[mode] = False
+
+    if mode in [8, 9, 10, 11, 12, 13, 14, 15] or mode in [23, 24, 25, 26, 27, 28, 29]:
         if win32api.GetKeyState(0x02) < 0 and win32api.GetKeyState(0x01) < 0:
             if not actionsfinish[mode]:
                 input_actions.get(mode, lambda: None)()
                 actionsfinish[mode] = True
+        else:
+            actionsfinish[mode] = False
     else:
         input_actions.get(mode, lambda: None)()
 
-    if mode not in [8, 9, 10, 11, 12, 13, 14, 15] and not ducking:
+    if mode not in [8, 9, 10, 11, 12, 13, 14, 15] and not ducking and mode not in [23, 24, 25, 26, 27, 28, 29]:
         deltaX *= 1.8
         deltaY *= 2
+
+    if mode == 'color':
+        Colorswitch()
 
     intX, intY = int(deltaX), int(deltaY)
     deltaX -= intX
@@ -128,6 +206,7 @@ def Input(mode):
     )
     ctypes.windll.user32.SendInput(1, ctypes.byref(mouse_input), ctypes.sizeof(mouse_input))
 
+
 threading.Thread(
     target=lambda: [
         ctypes.windll.kernel32.SetConsoleTitleW(str(uuid.uuid4())) and time.sleep(0.5) for _ in iter(int, 1)
@@ -137,7 +216,7 @@ threading.Thread(
 os.system("cls")
 logo = [
     "                                              ",
-    "                                                 Handel V 1.4    ",
+    "                                                 Handel V 1.5    ",
     "                                              ",
     "              (`-''-/).___..--''\"`-._",
     "              `6_ 6  )   `-.  (     ).`-.__.`)",
@@ -167,8 +246,9 @@ mode = Mainui()
 
 def keyrelease():
     global starttime, lasttime
-    starttime, lasttime = None, None; actionsfinish.update({action: False for action in actionsfinish})
-
+    starttime, lasttime = None, None
+    for action in actionsfinish:
+        actionsfinish[action] = False
 while True:
     active_window = win32gui.GetWindowText(win32gui.GetForegroundWindow())
     keyheld = (
@@ -178,7 +258,7 @@ while True:
     if "Rust" in active_window and keyheld[2]:
         if starttime is None:
             starttime = time.time()
-        if mode != 16:
+        if mode != 30:
             Input(mode)
     elif keyheld[1]:
         keyrelease()
@@ -186,6 +266,4 @@ while True:
         mode = Mainui()
     elif starttime is not None:
         keyrelease()
-    
-
     time.sleep(0.01)
