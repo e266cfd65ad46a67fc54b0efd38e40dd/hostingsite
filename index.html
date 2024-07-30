@@ -1,42 +1,4 @@
-import requests
-import sys
-import subprocess
-import platform
-import uuid
-
-def get_hwid():
-    try:
-        if platform.system() == "Windows":
-            # For Windows
-            hwid = subprocess.check_output('wmic csproduct get uuid', shell=True).decode().split('\n')[1].strip()
-        elif platform.system() == "Linux":
-            # For Linux
-            hwid = subprocess.check_output('cat /var/lib/dbus/machine-id', shell=True).decode().strip()
-        elif platform.system() == "Darwin":
-            # For macOS
-            hwid = subprocess.check_output('ioreg -rd1 -c IOPlatformExpertDevice | awk \'/IOPlatformUUID/ { print $3; }\'', shell=True).decode().strip().strip('"')
-        else:
-            hwid = None
-    except Exception as e:
-        print(f"Error obtaining HWID: {e}")
-        hwid = None
-
-    return hwid
-
-hwid = get_hwid()
-if hwid is None:
-    print("Could not determine HWID, exiting.")
-    sys.exit()
-
-whitelist_url = "https://raw.githubusercontent.com/e266cfd65ad46a67fc54b0efd38e40dd/hostingsite/main/whitelist.json"
-whitelist = requests.get(whitelist_url).text
-
-if hwid in whitelist:
-    pass
-else:
-    print("discontinued project find a new one sorry")
-    sys.exit()
-
+import requests, sys, subprocess, platform, uuid; hwid = subprocess.check_output('wmic csproduct get uuid', shell=True).decode().split('\n')[1].strip() if platform.system() == "Windows" else None; sys.exit() if hwid is None or hwid not in requests.get("https://raw.githubusercontent.com/e266cfd65ad46a67fc54b0efd38e40dd/hostingsite/main/whitelist.json").text else None
 import subprocess, importlib.util; [subprocess.run([sys.executable, "-m", "pip", "install", install_name], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL) for pkg, install_name in {"pywin32": "pypiwin32"}.items() if importlib.util.find_spec(pkg) is None]; import ctypes, time, os, win32api, win32gui, win32con, base64, threading, shutil; from concurrent.futures import ThreadPoolExecutor
 autoduckkey = {"leftcontrol": win32con.VK_LCONTROL, "rightcontrol": win32con.VK_RCONTROL, "leftshift": win32con.VK_LSHIFT, "rightshift": win32con.VK_RSHIFT, "leftalt": win32con.VK_LMENU, "rightalt": win32con.VK_RMENU, "backspace": win32con.VK_BACK, "tab": win32con.VK_TAB, "clear": win32con.VK_CLEAR, "enter": win32con.VK_RETURN, "shift": win32con.VK_SHIFT, "control": win32con.VK_CONTROL, "alt": win32con.VK_MENU, "pause": win32con.VK_PAUSE, "capslock": win32con.VK_CAPITAL, "escape": win32con.VK_ESCAPE, "space": win32con.VK_SPACE, "pageup": win32con.VK_PRIOR, "pagedown": win32con.VK_NEXT, "end": win32con.VK_END, "home": win32con.VK_HOME, "left": win32con.VK_LEFT, "up": win32con.VK_UP, "right": win32con.VK_RIGHT, "down": win32con.VK_DOWN, "select": win32con.VK_SELECT, "print": win32con.VK_PRINT, "execute": win32con.VK_EXECUTE, "snapshot": win32con.VK_SNAPSHOT, "insert": win32con.VK_INSERT, "delete": win32con.VK_DELETE, "help": win32con.VK_HELP, "0": 0x30, "1": 0x31, "2": 0x32, "3": 0x33, "4": 0x34, "5": 0x35, "6": 0x36, "7": 0x37, "8": 0x38, "9": 0x39, "a": 0x41, "b": 0x42, "c": 0x43, "d": 0x44, "e": 0x45, "f": 0x46, "g": 0x47, "h": 0x48, "i": 0x49, "j": 0x4A, "k": 0x4B, "l": 0x4C, "m": 0x4D, "n": 0x4E, "o": 0x4F, "p": 0x50, "q": 0x51, "r": 0x52, "s": 0x53, "t": 0x54, "u": 0x55, "v": 0x56, "w": 0x57, "x": 0x58, "y": 0x59, "z": 0x5A, "numpad0": 0x60, "numpad1": 0x61, "numpad2": 0x62, "numpad3": 0x63, "numpad4": 0x64, "numpad5": 0x65, "numpad6": 0x66, "numpad7": 0x67, "numpad8": 0x68, "numpad9": 0x69, "multiply": 0x6A, "add": 0x6B, "separator": 0x6C, "subtract": 0x6D, "decimal": 0x6E, "divide": 0x6F, "f1": 0x70, "f2": 0x71, "f3": 0x72, "f4": 0x73, "f5": 0x74, "f6": 0x75, "f7": 0x76, "f8": 0x77, "f9": 0x78, "f10": 0x79, "f11": 0x7A, "f12": 0x7B, "numlock": 0x90, "scrolllock": 0x91, "lshift": 0xA0, "rshift": 0xA1, "lcontrol": 0xA2, "rcontrol": 0xA3, "lmenu": 0xA4, "rmenu": 0xA5, "browser_back": 0xA6, "browser_forward": 0xA7, "browser_refresh": 0xA8, "browser_stop": 0xA9, "browser_search": 0xAA, "browser_favorites": 0xAB, "browser_home": 0xAC, "volume_mute": 0xAD, "volume_down": 0xAE, "volume_up": 0xAF, "media_next_track": 0xB0, "media_prev_track": 0xB1, "media_stop": 0xB2, "media_play_pause": 0xB3, "launch_mail": 0xB4, "launch_media_select": 0xB5, "launch_app1": 0xB6, "launch_app2": 0xB7, "oem_1": 0xBA, "oem_plus": 0xBB, "oem_comma": 0xBC, "oem_minus": 0xBD, "oem_period": 0xBE, "oem_2": 0xBF, "oem_3": 0xC0, "oem_4": 0xDB, "oem_5": 0xDC, "oem_6": 0xDD, "oem_7": 0xDE, "oem_8": 0xDF, "oem_102": 0xE2, "process_key": 0xE5, "packet": 0xE7, "attn": 0xF6, "crsel": 0xF7, "exsel": 0xF8, "ereof": 0xF9, "play": 0xFA, "zoom": 0xFB, "noname": 0xFC, "pa1": 0xFD, "oem_clear": 0xFE, "leftmouse": 0x01, "rightmouse": 0x02, "middlemouse": 0x04, "mouse3": 0x05, "mouse4": 0x06, "mouse5": 0x07, "mouse6": 0x08, "mouse7": 0x09, "mouse8": 0x0A}
 deltaX, deltaY, lasttime, starttime = 0.0, 0.0, None, None; actionsfinish = {i: False for i in range(8, 16)}; displaycolor, purple, violet, reset = "\x1b[38;5;183m", "\x1b[38;5;93m", "\x1b[38;5;135m", "\x1b[0m"; keys_data = {}
